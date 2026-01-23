@@ -102,12 +102,10 @@ public class LeafeeModel<T extends LeafeeEntity> extends SinglePartEntityModel<T
                 this.getPart().traverse().forEach(ModelPart::resetTransform);
 
                 this.updateAnimation(entity.idleAnimationState, LeafeeAnimations.IDLE, ageInTicks, 1F);
-                
-                if (entity.isSitting() || entity.isInSittingPose()) {
-                        this.updateAnimation(entity.sittingAnimationState, LeafeeAnimations.SIT, ageInTicks, 1.0F);
-                } else {
-                        this.animateMovement(LeafeeAnimations.WALK, limbSwing, limbSwingAmount, 2F, 2.5F);
-                }
+                this.updateAnimation(entity.sittingAnimationState, LeafeeAnimations.SIT, ageInTicks, 1.0F);
+
+                this.animateMovement(LeafeeAnimations.WALK, limbSwing, limbSwingAmount, 2F, 2.5F);
+
                 this.setHeadAngles(netHeadYaw, headPitch);
         }
 

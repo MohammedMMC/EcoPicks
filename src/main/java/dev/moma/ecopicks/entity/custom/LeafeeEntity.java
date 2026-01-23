@@ -5,6 +5,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.TargetPredicate;
+import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.AttackWithOwnerGoal;
 import net.minecraft.entity.ai.goal.FollowOwnerGoal;
 import net.minecraft.entity.ai.goal.FollowParentGoal;
@@ -64,6 +66,7 @@ public class LeafeeEntity extends TameableEntity {
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 20)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3)
+                .add(EntityAttributes.GENERIC_GRAVITY, 0.06)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 20);
     }
 
@@ -108,7 +111,7 @@ public class LeafeeEntity extends TameableEntity {
     }
 
     private void setupAnimationStates() {
-        if (this.isSitting() || this.isInSittingPose()) {
+        if (this.isSitting() || this.isInSittingPose() || (!this.isOnGround() && this.getVelocity().y < 0)) {
             this.idleAnimationState.stop();
             this.sittingAnimationState.startIfNotRunning(this.age);
         } else {
@@ -126,6 +129,13 @@ public class LeafeeEntity extends TameableEntity {
     public void tick() {
         super.tick();
 
+        if (!this.isOnGround()) {
+            var v = this.getVelocity();
+            if (v.y < 0) {
+                this.setVelocity(v.x, v.y * 0.80D, v.z);
+            }
+        }
+
         if (this.getWorld().isClient()) {
             this.setupAnimationStates();
         }
@@ -142,6 +152,11 @@ public class LeafeeEntity extends TameableEntity {
         if (this.isTamed())
             child.setOwnerUuid(this.getOwnerUuid());
         return child;
+    }
+
+    @Override
+    public boolean handleFallDamage(float fallDistance, float damageMultiplier, net.minecraft.entity.damage.DamageSource damageSource) {
+        return false;
     }
 
 }

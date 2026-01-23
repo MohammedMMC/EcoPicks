@@ -39,7 +39,7 @@ public class LeafeeAnimations {
 		))
 		.build();
 
-	public static final Animation SIT = Animation.Builder.create(0.1667F)
+	public static final Animation SIT = Animation.Builder.create(0.125F)
 		.addBoneAnimation("left_leg", new Transformation(Transformation.Targets.SCALE, 
 			new Keyframe(0.0F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
 			new Keyframe(0.125F, AnimationHelper.createScalingVector(1.0F, 0.4F, 1.0F), Transformation.Interpolations.LINEAR)
@@ -48,22 +48,15 @@ public class LeafeeAnimations {
 			new Keyframe(0.0F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
 			new Keyframe(0.125F, AnimationHelper.createScalingVector(1.0F, 0.4F, 1.0F), Transformation.Interpolations.LINEAR)
 		))
-		.addBoneAnimation("bones", new Transformation(Transformation.Targets.TRANSLATE, 
+		.addBoneAnimation("left_leg", new Transformation(Transformation.Targets.TRANSLATE, 
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR),
-			new Keyframe(0.125F, AnimationHelper.createTranslationalVector(0.0F, -5.0F, 0.0F), Transformation.Interpolations.LINEAR)
+			new Keyframe(0.125F, AnimationHelper.createTranslationalVector(0.0F, -4.8F, 0.0F), Transformation.Interpolations.LINEAR)
 		))
-		.build();
-
-	public static final Animation FALLING = Animation.Builder.create(0.1667F)
-		.addBoneAnimation("left_leg", new Transformation(Transformation.Targets.SCALE, 
-			new Keyframe(0.0F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
-			new Keyframe(0.125F, AnimationHelper.createScalingVector(1.0F, 0.4F, 1.0F), Transformation.Interpolations.LINEAR)
+		.addBoneAnimation("right_leg", new Transformation(Transformation.Targets.TRANSLATE, 
+			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR),
+			new Keyframe(0.125F, AnimationHelper.createTranslationalVector(0.0F, -4.8F, 0.0F), Transformation.Interpolations.LINEAR)
 		))
-		.addBoneAnimation("right_leg", new Transformation(Transformation.Targets.SCALE, 
-			new Keyframe(0.0F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
-			new Keyframe(0.125F, AnimationHelper.createScalingVector(1.0F, 0.4F, 1.0F), Transformation.Interpolations.LINEAR)
-		))
-		.addBoneAnimation("bones", new Transformation(Transformation.Targets.TRANSLATE, 
+		.addBoneAnimation("body", new Transformation(Transformation.Targets.TRANSLATE, 
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR),
 			new Keyframe(0.125F, AnimationHelper.createTranslationalVector(0.0F, -5.0F, 0.0F), Transformation.Interpolations.LINEAR)
 		))

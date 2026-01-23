@@ -23,7 +23,7 @@ public class LeafeeRenderer extends MobEntityRenderer<LeafeeEntity, LeafeeModel<
             VertexConsumerProvider vertexConsumerProvider, int i) {
         
         if (livingEntity.isBaby()) {
-            matrixStack.scale(0.5F, 0.5F, 0.5F);
+            matrixStack.scale(0.75F, 0.75F, 0.75F);
         } else {
             matrixStack.scale(1.0F, 1.0F, 1.0F);
         }

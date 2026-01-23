@@ -4,9 +4,6 @@ import dev.moma.ecopicks.entity.ModEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.AttackWithOwnerGoal;
 import net.minecraft.entity.ai.goal.FollowOwnerGoal;
 import net.minecraft.entity.ai.goal.FollowParentGoal;
@@ -21,7 +18,6 @@ import net.minecraft.entity.ai.goal.TrackOwnerAttackerGoal;
 import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -66,7 +62,7 @@ public class LeafeeEntity extends TameableEntity {
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 20)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3)
-                .add(EntityAttributes.GENERIC_GRAVITY, 0.06)
+                .add(EntityAttributes.GENERIC_GRAVITY, 0.07)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 20);
     }
 
@@ -107,7 +103,7 @@ public class LeafeeEntity extends TameableEntity {
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.BLOCK_CHERRY_LEAVES_STEP, 0.6F, 1.0F);
+        this.playSound(SoundEvents.BLOCK_CHERRY_LEAVES_STEP, 0.8F, 1.0F);
     }
 
     private void setupAnimationStates() {

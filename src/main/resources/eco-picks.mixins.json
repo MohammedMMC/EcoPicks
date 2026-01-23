@@ -3,7 +3,7 @@
 	"package": "dev.moma.ecopicks.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ExampleMixin"
+		"CarvedPumpkinBlockMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

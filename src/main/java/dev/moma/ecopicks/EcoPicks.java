@@ -13,6 +13,7 @@ import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import dev.moma.ecopicks.block.ModBlocks;
 import dev.moma.ecopicks.entity.ModEntities;
 import dev.moma.ecopicks.entity.custom.LeafeeEntity;
 import dev.moma.ecopicks.item.ModItems;
@@ -48,6 +49,7 @@ public class EcoPicks implements ModInitializer {
 		LOGGER.info("Hello Fabric world!");
 
 		ModEntities.registerModEntities();
+		ModBlocks.registerModBlocks();
 		ModItems.registerModItems();
 
 		FabricDefaultAttributeRegistry.register(ModEntities.LEAFEE, LeafeeEntity.createAttributes());

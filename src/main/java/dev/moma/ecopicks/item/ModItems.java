@@ -2,6 +2,7 @@ package dev.moma.ecopicks.item;
 
 import dev.moma.ecopicks.EcoPicks;
 import dev.moma.ecopicks.entity.ModEntities;
+import dev.moma.ecopicks.item.custom.EcoPickaxeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.SpawnEggItem;
@@ -21,6 +22,8 @@ public class ModItems {
     public static final Item LEAVES_SHARD = registerItem("leaves_shard", new Item(new Item.Settings()));
     public static final Item LEAFEE_SPAWN_EGG = registerItem("leafee_spawn_egg",
             new SpawnEggItem(ModEntities.LEAFEE, 0x50692c, 0xeb92c1, new Item.Settings()));
+    public static final Item ECO_PICKAXE = registerItem("eco_pickaxe",
+            new EcoPickaxeItem(ModToolMaterials.LEAVES, new Item.Settings()));
 
     public static void registerModItems() {
         for (String itemName : ITEMS_NAMES) {

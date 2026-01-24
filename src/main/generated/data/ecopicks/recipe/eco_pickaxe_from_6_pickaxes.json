@@ -1,0 +1,28 @@
+{
+  "type": "ecopicks:unique_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "tag": "ecopicks:eco_pickaxe_ingredients"
+    },
+    {
+      "tag": "ecopicks:eco_pickaxe_ingredients"
+    },
+    {
+      "tag": "ecopicks:eco_pickaxe_ingredients"
+    },
+    {
+      "tag": "ecopicks:eco_pickaxe_ingredients"
+    },
+    {
+      "tag": "ecopicks:eco_pickaxe_ingredients"
+    },
+    {
+      "tag": "ecopicks:eco_pickaxe_ingredients"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "ecopicks:eco_pickaxe"
+  }
+}

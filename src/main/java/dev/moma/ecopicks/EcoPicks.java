@@ -18,9 +18,10 @@ import dev.moma.ecopicks.entity.ModEntities;
 import dev.moma.ecopicks.entity.custom.LeafeeEntity;
 import dev.moma.ecopicks.item.ModItems;
 import dev.moma.ecopicks.screen.ModScreenHandlers;
+import dev.moma.ecopicks.recipe.ModRecipes;
 
 public class EcoPicks implements ModInitializer {
-	public static final String MOD_ID = "eco-picks";
+	public static final String MOD_ID = "ecopicks";
 
 	// This logger is used to write text to the console and the log file.
 	// It is considered best practice to use your mod id as the logger's name.
@@ -31,7 +32,7 @@ public class EcoPicks implements ModInitializer {
 			Identifier.of(MOD_ID, "eco_picks_group"),
 			FabricItemGroup.builder()
 					.icon(() -> new ItemStack(ModItems.ITEMS.get("cherry_pickaxe")))
-					.displayName(Text.translatable("itemGroup.eco-picks.eco_picks_group"))
+					.displayName(Text.translatable("itemGroup.ecopicks.eco_picks_group"))
 					.entries((ctx, entries) -> {
 						for (String item : ModItems.ITEMS.keySet()) {
 							entries.add(ModItems.ITEMS.get(item));
@@ -53,6 +54,7 @@ public class EcoPicks implements ModInitializer {
 		ModEntities.registerModEntities();
 		ModBlocks.registerModBlocks();
 		ModItems.registerModItems();
+		ModRecipes.registerModRecipes();
 
 		FabricDefaultAttributeRegistry.register(ModEntities.LEAFEE, LeafeeEntity.createAttributes());
 	}

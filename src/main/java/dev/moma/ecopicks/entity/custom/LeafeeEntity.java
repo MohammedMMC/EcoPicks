@@ -128,7 +128,7 @@ public class LeafeeEntity extends TameableEntity implements ExtendedScreenHandle
 
     @Override
     public Text getDisplayName() {
-        return this.getCustomName() != null ? this.getCustomName() : Text.translatable("entity.eco-picks.leafee");
+        return this.getCustomName() != null ? this.getCustomName() : Text.translatable("entity.ecopicks.leafee");
     }
 
     @Override

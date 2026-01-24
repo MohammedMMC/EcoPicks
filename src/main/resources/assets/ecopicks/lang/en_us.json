@@ -1,0 +1,17 @@
+{
+  "item.ecopicks.acacia_pickaxe": "Acacia Pickaxe",
+  "item.ecopicks.birch_pickaxe": "Birch Pickaxe",
+  "item.ecopicks.cherry_pickaxe": "Cherry Pickaxe",
+  "item.ecopicks.dark_oak_pickaxe": "Dark Oak Pickaxe",
+  "item.ecopicks.jungle_pickaxe": "Jungle Pickaxe",
+  "item.ecopicks.mangrove_pickaxe": "Mangrove Pickaxe",
+  "item.ecopicks.oak_pickaxe": "Oak Pickaxe",
+  "item.ecopicks.pale_oak_pickaxe": "Pale Oak Pickaxe",
+  "item.ecopicks.spruce_pickaxe": "Spruce Pickaxe",
+  "item.ecopicks.eco_pickaxe": "Eco Pickaxe",
+  "item.ecopicks.leaves_shard": "Leafee Shard",
+  "item.ecopicks.leafee_spawn_egg": "Leafee Spawn Egg",
+  "tooltip.ecopicks.eco_pickaxe.level": "Leaf Power: %s / 9",
+  "itemGroup.ecopicks.eco_picks_group": "Eco Picks",
+  "entity.ecopicks.leafee": "Leafee"
+}

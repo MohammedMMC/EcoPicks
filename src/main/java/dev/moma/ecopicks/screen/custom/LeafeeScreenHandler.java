@@ -1,7 +1,6 @@
 package dev.moma.ecopicks.screen.custom;
 
 import dev.moma.ecopicks.entity.custom.LeafeeEntity;
-import dev.moma.ecopicks.item.ModItems;
 import dev.moma.ecopicks.screen.ModScreenHandlers;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;

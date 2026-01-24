@@ -1,6 +1,0 @@
-{
-  "parent": "item/handheld",
-  "textures": {
-    "layer0": "eco-picks:item/pale_oak_pickaxe"
-  }
-}

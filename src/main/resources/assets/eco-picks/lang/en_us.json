@@ -2,14 +2,14 @@
   "item.eco-picks.acacia_pickaxe": "Acacia Pickaxe",
   "item.eco-picks.birch_pickaxe": "Birch Pickaxe",
   "item.eco-picks.cherry_pickaxe": "Cherry Pickaxe",
-  "item.eco-picks.darkoak_pickaxe": "Dark Oak Pickaxe",
+  "item.eco-picks.dark_oak_pickaxe": "Dark Oak Pickaxe",
   "item.eco-picks.jungle_pickaxe": "Jungle Pickaxe",
   "item.eco-picks.mangrove_pickaxe": "Mangrove Pickaxe",
   "item.eco-picks.oak_pickaxe": "Oak Pickaxe",
-  "item.eco-picks.paleoak_pickaxe": "Pale Oak Pickaxe",
+  "item.eco-picks.pale_oak_pickaxe": "Pale Oak Pickaxe",
   "item.eco-picks.spruce_pickaxe": "Spruce Pickaxe",
-  "item.eco-picks.leaves_shard": "Leaves Shard",
-  "itemGroup.eco-picks.eco_picks_group": "Eco Picks",
+  "item.eco-picks.leaves_shard": "Leafee Shard",
   "item.eco-picks.leafee_spawn_egg": "Leafee Spawn Egg",
+  "itemGroup.eco-picks.eco_picks_group": "Eco Picks",
   "entity.eco-picks.leafee": "Leafee"
 }

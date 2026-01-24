@@ -1,6 +1,10 @@
 package dev.moma.ecopicks.entity.custom;
 
 import dev.moma.ecopicks.entity.ModEntities;
+import dev.moma.ecopicks.item.ModItems;
+import dev.moma.ecopicks.screen.custom.LeafeeScreenData;
+import dev.moma.ecopicks.screen.custom.LeafeeScreenHandler;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityType;
@@ -21,20 +25,37 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class LeafeeEntity extends TameableEntity {
+public class LeafeeEntity extends TameableEntity implements ExtendedScreenHandlerFactory<LeafeeScreenData> {
     public final AnimationState sittingAnimationState = new AnimationState();
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
+    private SimpleInventory inventory = new SimpleInventory(7);
+
+    private int progressTicks = 0;
+    public static final int MAX_PROGRESS = 6000;
+
+    public int getProgress() {
+        return this.progressTicks;
+    }
+
+    public void setProgress(int progress) {
+        this.progressTicks = progress;
+    }
 
     public LeafeeEntity(EntityType<? extends TameableEntity> entityType, World world) {
         super(entityType, world);
@@ -89,16 +110,25 @@ public class LeafeeEntity extends TameableEntity {
         if (!super.interactMob(player, hand).isAccepted() && this.isTamed() && this.isOwner(player)
                 && hand == Hand.MAIN_HAND) {
             if (!this.getWorld().isClient) {
-                boolean newSitting = !this.isSitting();
-                this.setSitting(newSitting);
-                this.setInSittingPose(newSitting);
-                this.navigation.stop();
-                this.setTarget(null);
+                if (player.isSneaking()) {
+                    player.openHandledScreen(this);
+                } else {
+                    boolean newSitting = !this.isSitting();
+                    this.setSitting(newSitting);
+                    this.setInSittingPose(newSitting);
+                    this.navigation.stop();
+                    this.setTarget(null);
+                }
             }
             return ActionResult.SUCCESS_NO_ITEM_USED;
         }
 
         return super.interactMob(player, hand);
+    }
+
+    @Override
+    public Text getDisplayName() {
+        return this.getCustomName() != null ? this.getCustomName() : Text.translatable("entity.eco-picks.leafee");
     }
 
     @Override
@@ -116,7 +146,7 @@ public class LeafeeEntity extends TameableEntity {
                 this.idleAnimationTimeout = 40;
                 this.idleAnimationState.start(this.age);
             } else {
-                --this.idleAnimationTimeout;
+                this.idleAnimationTimeout--;
             }
         }
     }
@@ -134,6 +164,28 @@ public class LeafeeEntity extends TameableEntity {
 
         if (this.getWorld().isClient()) {
             this.setupAnimationStates();
+
+        } else {
+            ItemStack inputStack = this.inventory.getStack(0);
+            ItemStack outputStack = this.inventory.getStack(1);
+
+            if (!inputStack.isEmpty() && inputStack.isOf(Items.AMETHYST_SHARD)) {
+                this.progressTicks++;
+
+                if (this.progressTicks >= MAX_PROGRESS) {
+                    inputStack.decrement(1);
+
+                    if (outputStack.isEmpty()) {
+                        this.inventory.setStack(1, new ItemStack(ModItems.LEAVES_SHARD));
+                    } else if (outputStack.isOf(ModItems.LEAVES_SHARD)) {
+                        outputStack.increment(1);
+                    }
+
+                    this.progressTicks = 0;
+                }
+            } else {
+                this.progressTicks = 0;
+            }
         }
     }
 
@@ -151,8 +203,18 @@ public class LeafeeEntity extends TameableEntity {
     }
 
     @Override
-    public boolean handleFallDamage(float fallDistance, float damageMultiplier, net.minecraft.entity.damage.DamageSource damageSource) {
+    public boolean handleFallDamage(float fallDistance, float damageMultiplier,
+            net.minecraft.entity.damage.DamageSource damageSource) {
         return false;
     }
 
+    @Override
+    public LeafeeScreenData getScreenOpeningData(ServerPlayerEntity player) {
+        return new LeafeeScreenData(getId());
+    }
+
+    @Override
+    public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+        return new LeafeeScreenHandler(syncId, inv, this.inventory, this);
+    }
 }

@@ -17,6 +17,7 @@ import dev.moma.ecopicks.block.ModBlocks;
 import dev.moma.ecopicks.entity.ModEntities;
 import dev.moma.ecopicks.entity.custom.LeafeeEntity;
 import dev.moma.ecopicks.item.ModItems;
+import dev.moma.ecopicks.screen.ModScreenHandlers;
 
 public class EcoPicks implements ModInitializer {
 	public static final String MOD_ID = "eco-picks";
@@ -48,6 +49,7 @@ public class EcoPicks implements ModInitializer {
 
 		LOGGER.info("Hello Fabric world!");
 
+		ModScreenHandlers.registerScreenHandlers();
 		ModEntities.registerModEntities();
 		ModBlocks.registerModBlocks();
 		ModItems.registerModItems();

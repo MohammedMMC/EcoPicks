@@ -24,5 +24,6 @@ public class ModScreenHandlers {
                     LeafeeScreenData.PACKET_CODEC));
 
     public static void registerScreenHandlers() {
+		EcoPicks.LOGGER.info("Registering Screen Handlers for " + EcoPicks.MOD_ID);
     }
 }

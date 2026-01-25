@@ -8,12 +8,11 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 
 public enum ModToolMaterials implements ToolMaterial {
-    LEAVES(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 59, 2.0F, 0.0F, 15, () -> {
-        return Ingredient.fromTag(ItemTags.PLANKS);
+    LEAVES(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 100, 2.0F, 2.0F, 10, () -> {
+        return Ingredient.ofItems(ModItems.LEAVES_SHARD);
     });
 
     private final TagKey<Block> inverseTag;

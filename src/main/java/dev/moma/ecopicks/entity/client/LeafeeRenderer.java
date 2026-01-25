@@ -21,7 +21,7 @@ public class LeafeeRenderer extends MobEntityRenderer<LeafeeEntity, LeafeeModel<
     @Override
     public void render(LeafeeEntity livingEntity, float f, float g, MatrixStack matrixStack,
             VertexConsumerProvider vertexConsumerProvider, int i) {
-        
+
         if (livingEntity.isBaby()) {
             matrixStack.scale(0.75F, 0.75F, 0.75F);
         } else {

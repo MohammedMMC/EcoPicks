@@ -25,10 +25,9 @@ public class ModItemTagProvider extends ItemTagProvider {
     protected void configure(WrapperLookup wrapperLookup) {
         var builder = getOrCreateTagBuilder(ECO_PICKAXE_INGREDIENTS);
         for (String itemName : ModItems.ITEMS_NAMES) {
-            if (!"eco_pickaxe".equals(itemName)) {
-                builder.add(Registries.ITEM.get(Identifier.of(EcoPicks.MOD_ID, itemName)));
-            }
+            builder.add(Registries.ITEM.get(Identifier.of(EcoPicks.MOD_ID, itemName)));
         }
+        builder.add(Registries.ITEM.get(Identifier.of(EcoPicks.MOD_ID, "eco_pickaxe")));
     }
 
 }

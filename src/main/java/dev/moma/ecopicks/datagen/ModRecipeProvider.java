@@ -2,8 +2,7 @@ package dev.moma.ecopicks.datagen;
 
 import java.util.concurrent.CompletableFuture;
 import dev.moma.ecopicks.EcoPicks;
-import dev.moma.ecopicks.datagen.ModItemTagProvider;
-import dev.moma.ecopicks.recipe.UniqueShapelessRecipe;
+import dev.moma.ecopicks.recipe.custom.EcoPickaxeRecipes;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.server.recipe.RecipeExporter;
@@ -31,17 +30,13 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 ingredients.add(Ingredient.fromTag(ModItemTagProvider.ECO_PICKAXE_INGREDIENTS));
             }
 
-            UniqueShapelessRecipe recipe = new UniqueShapelessRecipe(
-                CraftingRecipeCategory.EQUIPMENT,
-                ecoPickaxe,
-                ingredients
-            );
-
             exporter.accept(
-                Identifier.of(EcoPicks.MOD_ID, "eco_pickaxe_from_" + count + "_pickaxes"),
-                recipe,
-                null
-            );
+                    Identifier.of(EcoPicks.MOD_ID, "eco_pickaxe_from_" + count + "_pickaxes"),
+                    new EcoPickaxeRecipes(
+                            CraftingRecipeCategory.EQUIPMENT,
+                            ecoPickaxe,
+                            ingredients),
+                    null);
         }
     }
 }

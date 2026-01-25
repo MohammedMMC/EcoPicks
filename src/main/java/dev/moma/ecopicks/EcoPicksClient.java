@@ -10,7 +10,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 
-public class EcoPicksClient implements ClientModInitializer{
+public class EcoPicksClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
@@ -18,6 +18,7 @@ public class EcoPicksClient implements ClientModInitializer{
         EntityRendererRegistry.register(ModEntities.LEAFEE, LeafeeRenderer::new);
 
         HandledScreens.register(ModScreenHandlers.LEAFEE_SCREEN_HANDLER, LeafeeScreen::new);
+
     }
-    
+
 }

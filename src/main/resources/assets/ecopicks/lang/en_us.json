@@ -11,7 +11,7 @@
   "item.ecopicks.eco_pickaxe": "Eco Pickaxe",
   "item.ecopicks.leaves_shard": "Leafee Shard",
   "item.ecopicks.leafee_spawn_egg": "Leafee Spawn Egg",
-  "tooltip.ecopicks.eco_pickaxe.level": "Leaf Power: %s / 9",
+  "tooltip.ecopicks.eco_pickaxe.level": "§aLeaf Power:§f %s / 9",
   "itemGroup.ecopicks.eco_picks_group": "Eco Picks",
   "entity.ecopicks.leafee": "Leafee"
 }

@@ -1,7 +1,6 @@
 package dev.moma.ecopicks.entity.client;
 
 import dev.moma.ecopicks.EcoPicks;
-import dev.moma.ecopicks.entity.custom.LeafeeEntity;
 import net.minecraft.client.model.Dilation;
 import net.minecraft.client.model.ModelData;
 import net.minecraft.client.model.ModelPart;
@@ -9,14 +8,12 @@ import net.minecraft.client.model.ModelPartBuilder;
 import net.minecraft.client.model.ModelPartData;
 import net.minecraft.client.model.ModelTransform;
 import net.minecraft.client.model.TexturedModelData;
-import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
-public class LeafeeModel<T extends LeafeeEntity> extends SinglePartEntityModel<T> {
+public class LeafeeModel extends EntityModel<LeafeeRenderState> {
         public static final EntityModelLayer LEAFEE = new EntityModelLayer(Identifier.of(EcoPicks.MOD_ID, "leafee"),
                         "main");
 
@@ -29,6 +26,7 @@ public class LeafeeModel<T extends LeafeeEntity> extends SinglePartEntityModel<T
         private final ModelPart right_leg_part;
 
         public LeafeeModel(ModelPart root) {
+                super(root);
                 this.bones = root.getChild("bones");
                 this.left_leg = this.bones.getChild("left_leg");
                 this.left_leg_part = this.left_leg.getChild("left_leg_part");
@@ -97,16 +95,15 @@ public class LeafeeModel<T extends LeafeeEntity> extends SinglePartEntityModel<T
         }
 
         @Override
-        public void setAngles(LeafeeEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks,
-                        float netHeadYaw, float headPitch) {
-                this.getPart().traverse().forEach(ModelPart::resetTransform);
+        public void setAngles(LeafeeRenderState state) {
+                super.setAngles(state);
+                this.setHeadAngles(state.yawDegrees, state.pitch);
 
-                this.updateAnimation(entity.idleAnimationState, LeafeeAnimations.IDLE, ageInTicks, 1F);
-                this.updateAnimation(entity.sittingAnimationState, LeafeeAnimations.SIT, ageInTicks, 1.0F);
+                this.animate(state.idleAnimationState, LeafeeAnimations.IDLE, state.age, 1F);
+                this.animate(state.sittingAnimationState, LeafeeAnimations.SIT, state.age, 1.0F);
 
-                this.animateMovement(LeafeeAnimations.WALK, limbSwing, limbSwingAmount, 2F, 2.5F);
+                this.animateWalking(LeafeeAnimations.WALK, state.limbFrequency, state.limbAmplitudeMultiplier, 2F, 2.5F);
 
-                this.setHeadAngles(netHeadYaw, headPitch);
         }
 
         private void setHeadAngles(float headYaw, float headPitch) {
@@ -115,15 +112,5 @@ public class LeafeeModel<T extends LeafeeEntity> extends SinglePartEntityModel<T
 
                 this.body.yaw = headYaw * MathHelper.RADIANS_PER_DEGREE;
                 this.body.pitch = headPitch * MathHelper.RADIANS_PER_DEGREE;
-        }
-
-        @Override
-        public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color) {
-                bones.render(matrices, vertexConsumer, light, overlay, color);
-        }
-
-        @Override
-        public ModelPart getPart() {
-                return bones;
         }
 }

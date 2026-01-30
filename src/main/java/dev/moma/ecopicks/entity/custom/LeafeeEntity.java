@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.AttackWithOwnerGoal;
 import net.minecraft.entity.ai.goal.FollowOwnerGoal;
 import net.minecraft.entity.ai.goal.FollowParentGoal;
@@ -43,10 +44,9 @@ import net.minecraft.world.World;
 public class LeafeeEntity extends TameableEntity implements ExtendedScreenHandlerFactory<LeafeeScreenData> {
     public final AnimationState sittingAnimationState = new AnimationState();
     public final AnimationState idleAnimationState = new AnimationState();
-    private int idleAnimationTimeout = 0;
-    private SimpleInventory inventory = new SimpleInventory(7);
-
-    private int progressTicks = 0;
+    public SimpleInventory inventory = new SimpleInventory(7);
+    public int idleAnimationTimeout = 0;
+    public int progressTicks = 0;
     public static final int MAX_PROGRESS = 6000;
 
     public int getProgress() {
@@ -80,11 +80,12 @@ public class LeafeeEntity extends TameableEntity implements ExtendedScreenHandle
 
     public static DefaultAttributeContainer.Builder createAttributes() {
         return TameableEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 20)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3)
-                .add(EntityAttributes.GENERIC_GRAVITY, 0.07)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 20);
+                .add(EntityAttributes.MAX_HEALTH, 20)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.35)
+                .add(EntityAttributes.ATTACK_DAMAGE, 3)
+                .add(EntityAttributes.GRAVITY, 0.07)
+                .add(EntityAttributes.FOLLOW_RANGE, 20)
+                .add(EntityAttributes.TEMPT_RANGE, 20);
     }
 
     @Override
@@ -104,7 +105,7 @@ public class LeafeeEntity extends TameableEntity implements ExtendedScreenHandle
                     this.getWorld().sendEntityStatus(this, (byte) 6);
                 }
             }
-            return ActionResult.success(this.getWorld().isClient);
+            return ActionResult.SUCCESS;
         }
 
         if (!super.interactMob(player, hand).isAccepted() && this.isTamed() && this.isOwner(player)
@@ -120,7 +121,7 @@ public class LeafeeEntity extends TameableEntity implements ExtendedScreenHandle
                     this.setTarget(null);
                 }
             }
-            return ActionResult.SUCCESS_NO_ITEM_USED;
+            return ActionResult.SUCCESS;
         }
 
         return super.interactMob(player, hand);
@@ -196,7 +197,7 @@ public class LeafeeEntity extends TameableEntity implements ExtendedScreenHandle
 
     @Override
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        LeafeeEntity child = ModEntities.LEAFEE.create(world);
+        LeafeeEntity child = ModEntities.LEAFEE.create(world, SpawnReason.BREEDING);
         if (this.isTamed())
             child.setOwnerUuid(this.getOwnerUuid());
         return child;

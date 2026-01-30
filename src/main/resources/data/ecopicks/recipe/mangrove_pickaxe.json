@@ -7,8 +7,8 @@
     " S "
   ],
   "key": {
-    "P": { "item": "minecraft:mangrove_leaves" },
-    "S": { "item": "minecraft:stick" }
+    "P": "minecraft:mangrove_leaves",
+    "S": "minecraft:stick"
   },
   "result": { "id": "ecopicks:mangrove_pickaxe", "count": 1 }
 }

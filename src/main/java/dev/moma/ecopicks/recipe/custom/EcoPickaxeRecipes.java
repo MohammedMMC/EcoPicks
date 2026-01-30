@@ -37,13 +37,13 @@ public class EcoPickaxeRecipes implements CraftingRecipe {
 
     @Override
     public boolean matches(CraftingRecipeInput input, World world) {
-        if (input.getSize() < ingredients.size())
+        if (input.getStackCount() < ingredients.size())
             return false;
 
         Set<ItemStack> usedStacks = new HashSet<>();
         List<Ingredient> remaining = new ArrayList<>(ingredients);
 
-        for (int i = 0; i < input.getSize(); i++) {
+        for (int i = 0; i < input.getStackCount(); i++) {
             ItemStack stack = input.getStackInSlot(i);
             if (stack.isEmpty())
                 continue;
@@ -70,7 +70,7 @@ public class EcoPickaxeRecipes implements CraftingRecipe {
         }
 
         ItemStack ecoStack = ItemStack.EMPTY;
-        for (int i = 0; i < input.getSize(); i++) {
+        for (int i = 0; i < input.getStackCount(); i++) {
             ItemStack stack = input.getStackInSlot(i);
             if (!stack.isEmpty() && isEcoPickaxe(stack)) {
                 ecoStack = stack;
@@ -87,7 +87,7 @@ public class EcoPickaxeRecipes implements CraftingRecipe {
             return true;
         }
 
-        for (int i = 0; i < input.getSize(); i++) {
+        for (int i = 0; i < input.getStackCount(); i++) {
             ItemStack stack = input.getStackInSlot(i);
             if (stack.isEmpty() || isEcoPickaxe(stack)) {
                 continue;
@@ -112,7 +112,7 @@ public class EcoPickaxeRecipes implements CraftingRecipe {
         net.minecraft.nbt.NbtList combined = nbt.getList("CombinedPickaxes",
                 net.minecraft.nbt.NbtElement.STRING_TYPE);
 
-        for (int i = 0; i < input.getSize(); i++) {
+        for (int i = 0; i < input.getStackCount(); i++) {
             ItemStack stack = input.getStackInSlot(i);
             if (stack.isEmpty() || isEcoPickaxe(stack)) {
                 continue;
@@ -129,22 +129,20 @@ public class EcoPickaxeRecipes implements CraftingRecipe {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer getSerializer() {
         return ModRecipes.UNIQUE_SHAPELESS;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType getType() {
         return RecipeType.CRAFTING;
     }
 
-    @Override
     public DefaultedList<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    @Override
-    public ItemStack getResult(RegistryWrapper.WrapperLookup lookup) {
+    public ItemStack getResult() {
         return result;
     }
 
@@ -153,13 +151,12 @@ public class EcoPickaxeRecipes implements CraftingRecipe {
         return category;
     }
 
-    @Override
     public boolean fits(int width, int height) {
         return width * height >= ingredients.size();
     }
 
     private ItemStack getEcoPickaxe(CraftingRecipeInput input) {
-        for (int i = 0; i < input.getSize(); i++) {
+        for (int i = 0; i < input.getStackCount(); i++) {
             ItemStack stack = input.getStackInSlot(i);
             if (!stack.isEmpty() && isEcoPickaxe(stack)) {
                 return stack;
@@ -192,9 +189,9 @@ public class EcoPickaxeRecipes implements CraftingRecipe {
         public static final MapCodec<EcoPickaxeRecipes> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
                 CraftingRecipeCategory.CODEC.fieldOf("category").forGetter(r -> r.category),
                 ItemStack.VALIDATED_CODEC.fieldOf("result").forGetter(r -> r.result),
-                Ingredient.DISALLOW_EMPTY_CODEC.listOf().fieldOf("ingredients").forGetter(r -> r.ingredients))
+                Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(r -> r.ingredients))
                 .apply(inst, (cat, res, ing) -> new EcoPickaxeRecipes(cat, res,
-                        DefaultedList.copyOf(Ingredient.EMPTY, ing.toArray(new Ingredient[0])))));
+                        DefaultedList.copyOf(null, ing.toArray(new Ingredient[0])))));
 
         public static final PacketCodec<RegistryByteBuf, EcoPickaxeRecipes> PACKET_CODEC = PacketCodec.ofStatic(
                 Serializer::write, Serializer::read);
@@ -212,7 +209,7 @@ public class EcoPickaxeRecipes implements CraftingRecipe {
             CraftingRecipeCategory cat = buf.readEnumConstant(CraftingRecipeCategory.class);
             ItemStack res = ItemStack.PACKET_CODEC.decode(buf);
             int size = buf.readVarInt();
-            DefaultedList<Ingredient> ings = DefaultedList.ofSize(size, Ingredient.EMPTY);
+            DefaultedList<Ingredient> ings = DefaultedList.ofSize(size, null);
             for (int i = 0; i < size; i++) {
                 ings.set(i, Ingredient.PACKET_CODEC.decode(buf));
             }
@@ -228,5 +225,10 @@ public class EcoPickaxeRecipes implements CraftingRecipe {
         public PacketCodec<RegistryByteBuf, EcoPickaxeRecipes> packetCodec() {
             return PACKET_CODEC;
         }
+    }
+
+    @Override
+    public IngredientPlacement getIngredientPlacement() {
+        return IngredientPlacement.forShapeless(ingredients);
     }
 }

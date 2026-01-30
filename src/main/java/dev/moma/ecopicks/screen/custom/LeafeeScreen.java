@@ -5,6 +5,7 @@ import dev.moma.ecopicks.entity.custom.LeafeeEntity;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -24,7 +25,7 @@ public class LeafeeScreen extends HandledScreen<LeafeeScreenHandler> {
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        context.drawTexture(TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
+        context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
         this.drawProgressArrow(context, x, y);
         this.drawEntity(context, x, y, mouseX, mouseY);
     }
@@ -46,7 +47,7 @@ public class LeafeeScreen extends HandledScreen<LeafeeScreenHandler> {
             arrowWidth = Math.max(2, arrowWidth);
         }
 
-        context.drawTexture(ARROW_TEXTURE,
+        context.drawTexture(RenderLayer::getGuiTextured, ARROW_TEXTURE,
                 x + 99, y + 20, 0, 0,
                 arrowWidth, 16, 24, 16);
     }

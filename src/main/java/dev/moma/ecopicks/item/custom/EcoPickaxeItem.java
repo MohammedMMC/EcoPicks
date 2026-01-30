@@ -19,7 +19,7 @@ import net.minecraft.text.Text;
 
 public class EcoPickaxeItem extends PickaxeItem {
     public EcoPickaxeItem(ToolMaterial material, Settings settings) {
-        super(material, settings);
+        super(material, 0, 0, settings);
     }
 
     @Override

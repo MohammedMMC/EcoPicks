@@ -7,8 +7,8 @@
     " S "
   ],
   "key": {
-    "P": { "item": "minecraft:pale_oak_leaves" },
-    "S": { "item": "minecraft:stick" }
+    "P": "minecraft:pale_oak_leaves",
+    "S": "minecraft:stick"
   },
   "result": { "id": "ecopicks:pale_oak_pickaxe", "count": 1 }
 }

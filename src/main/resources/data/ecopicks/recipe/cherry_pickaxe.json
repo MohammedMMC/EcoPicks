@@ -7,8 +7,8 @@
     " S "
   ],
   "key": {
-    "P": { "item": "minecraft:cherry_leaves" },
-    "S": { "item": "minecraft:stick" }
+    "P": "minecraft:cherry_leaves",
+    "S": "minecraft:stick"
   },
   "result": { "id": "ecopicks:cherry_pickaxe", "count": 1 }
 }

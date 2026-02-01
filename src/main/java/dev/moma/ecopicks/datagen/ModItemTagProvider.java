@@ -16,6 +16,8 @@ import net.minecraft.util.Identifier;
 public class ModItemTagProvider extends ItemTagProvider {
     public static final TagKey<Item> ECO_PICKAXE_INGREDIENTS = TagKey.of(RegistryKeys.ITEM,
             Identifier.of(EcoPicks.MOD_ID, "eco_pickaxe_ingredients"));
+    public static final TagKey<Item> ECO_SHARD = TagKey.of(RegistryKeys.ITEM,
+            Identifier.of(EcoPicks.MOD_ID, "eco_shard"));
 
     public ModItemTagProvider(FabricDataOutput output, CompletableFuture<WrapperLookup> completableFuture) {
         super(output, completableFuture);
@@ -23,11 +25,14 @@ public class ModItemTagProvider extends ItemTagProvider {
 
     @Override
     protected void configure(WrapperLookup wrapperLookup) {
-        var builder = getOrCreateTagBuilder(ECO_PICKAXE_INGREDIENTS);
+        var pickaxeBuilder = getOrCreateTagBuilder(ECO_PICKAXE_INGREDIENTS);
         for (String itemName : ModItems.ITEMS_NAMES) {
-            builder.add(Registries.ITEM.get(Identifier.of(EcoPicks.MOD_ID, itemName)));
+            pickaxeBuilder.add(Registries.ITEM.get(Identifier.of(EcoPicks.MOD_ID, itemName)));
         }
-        builder.add(Registries.ITEM.get(Identifier.of(EcoPicks.MOD_ID, "eco_pickaxe")));
+        pickaxeBuilder.add(ModItems.ECO_PICKAXE);
+
+        var shardBuilder = getOrCreateTagBuilder(ECO_SHARD);
+        shardBuilder.add(ModItems.LEAVES_SHARD);
     }
 
 }

@@ -26,14 +26,14 @@ public class ModItems {
         public static final Item LEAFEE_SPAWN_EGG = registerItem("leafee_spawn_egg",
                         new SpawnEggItem(ModEntities.LEAFEE, new Item.Settings().registryKey(getKey("leafee_spawn_egg"))));
         public static final Item ECO_PICKAXE = registerItem("eco_pickaxe",
-                        new EcoPickaxeItem(ToolMaterial.DIAMOND, new Item.Settings().registryKey(getKey("eco_pickaxe"))));
+                        new EcoPickaxeItem(ModToolMaterial.ECO_LEAVES, new Item.Settings().registryKey(getKey("eco_pickaxe"))));
 
         public static void registerModItems() {
                 EcoPicks.LOGGER.info("Registering Items for " + EcoPicks.MOD_ID);
 
                 for (String itemName : ITEMS_NAMES) {
                         ITEMS.put(itemName, registerItem(itemName,
-                                        new PickaxeItem(ToolMaterial.IRON, 0, 0, new Item.Settings().registryKey(getKey(itemName)))));
+                                        new PickaxeItem(ModToolMaterial.LEAVES, 0, 0, new Item.Settings().registryKey(getKey(itemName)))));
                 }
         }
 
